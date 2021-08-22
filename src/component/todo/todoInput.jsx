@@ -1,7 +1,7 @@
 import React from 'react';
 import InputGeneral from './inputGeneral';
 import './style.scss'
-class InputTodo extends React.Component {
+class InputTodo extends React.PureComponent {
     constructor(props) {
         super(props);
         this.state = {

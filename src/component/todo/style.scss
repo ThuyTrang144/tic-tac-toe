@@ -16,7 +16,7 @@
     // @include item;
     @include item;
     border-style: none;
-    border: 1px solid #7e8081;;
+    border: 1px solid #7e8081;
 }
 .add-btn {
     background-color: #40A9FF;
@@ -44,4 +44,21 @@
 }
 .delete-icon {
     color: rgb(192, 24, 24);
+}
+.search-box {
+    width: 500px;
+    height: 50px;
+    border: 1px solid #7e8081;
+    border-radius: 4px;
+    margin: 20px;
+    align-items: center;
+}
+.icon-search {
+    font-size: 20px;
+    color: #7e8081;
+    float: right;
+}
+.search-btn {
+    width: 100px;
+    height: 50px;
 }
