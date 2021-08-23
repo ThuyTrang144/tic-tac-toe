@@ -13,18 +13,10 @@ class TodoSearch extends React.PureComponent {
         this.setState({value: value})
         this.props.searchTodo(value)
     }
-    // onChange = (e) => {
-    //     const value = e.target.value
-    //     this.setState({ value: value})
-    //     if(this.props.onChange) {
-    //         this.props.onChange(value)
-    //     }
-    // }
     render() {  
         return ( 
             <div>
                  <input className='search-box' placeholder='Search todo...' type='search' onChange={this.onChange}></input>
-                 <button className='search-btn'>Search</button>
             </div>
            
          );
