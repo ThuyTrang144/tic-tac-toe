@@ -16,7 +16,11 @@ class TodoSearch extends React.PureComponent {
     render() {  
         return ( 
             <div>
-                 <input className='search-box' placeholder='Search todo...' type='search' onChange={this.onChange}></input>
+                 <input 
+                    className='search-box' 
+                    placeholder='Search todo...' 
+                    type='search' onChange={this.onChange}>
+                 </input>
             </div>
            
          );
