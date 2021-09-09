@@ -1,13 +1,10 @@
 import React from 'react';
 import InputTodo from './todoInput';
 import TodoSearch from './todoSearch';
-import './style.scss'
+import { TodoContext } from './context'
 import TodoListView from './TodoListView';
+import './style.scss'
 
-const TodoContext = React.createContext({ todoList: [], 
-    filterValue: '', 
-    addNewtodo: () => {}, 
-    editTodo: () => {}})
 class TodoList extends React.PureComponent {
     constructor(props) {
         super(props);
@@ -20,40 +17,49 @@ class TodoList extends React.PureComponent {
                 {todoTitle: 'Eating'}
             ],
         };
-        this.addNewtodo = (text) => {
-            const { todoList } = this.state;
-            todoList.push({todoTitle: text})
-            this.setState({todoList: [...todoList]})
-            console.log("todoList", todoList)
-        };
-        this.editTodo = (keyIndex, text) => {
-            const todoList = this.state.todoList
-            const newList = todoList.map((item, index) => {
-                if(keyIndex === index) {
-                    item = {...item, todoTitle: text}
-                }
-                return item
-            })
-            this.setState({todoList: newList})    
-        }
+
     }
-   
+
+
+    addNewtodo = (text) => {
+        const { todoList } = this.state;
+        todoList.push({todoTitle: text})
+        this.setState({todoList: [...todoList]})
+        console.log("todoList", todoList)
+    };
+    editTodo = (keyIndex, text) => {
+        const todoList = this.state.todoList
+        const newList = todoList.map((item, index) => {
+            if(keyIndex === index) {
+                item = {...item, todoTitle: text}
+            }
+            return item
+        })
+        this.setState({todoList: newList})    
+    }
+    searchTodo = (text) => {
+        this.setState({filterValue: text})
+    }
     deleteTodo = (keyIndex) => {
         const newList = [...this.state.todoList];
         newList.splice(keyIndex, 1)
         this.setState({todoList: newList})
     }
-    searchTodo = (text) => {
-        this.setState({filterValue: text})
-    }
     render() { 
         return ( 
-            <TodoContext.Provider value={this.state} addNewtodo={this.addNewtodo} editTodo={this.editTodo}>
+            <TodoContext.Provider 
+                value={{
+                    state: this.state,
+                    addNewtodo: this.addNewtodo,
+                    searchTodo: this.searchTodo,
+                    editTodo: this.editTodo,
+                    deleteTodo: this.deleteTodo
+                }}  
+            >
               <div>
-                <TodoSearch searchTodo={this.searchTodo}/>
-                <InputTodo/>
-                {/* <TodoListView todoList={this.state.todoList} filterValue={this.state.filterValue}></TodoListView> */}
-                <TodoListView />
+                <TodoSearch />
+                {/* <InputTodo/> */}
+                {/* <TodoListView /> */}
             </div>
             </TodoContext.Provider>
          );     
@@ -61,4 +67,3 @@ class TodoList extends React.PureComponent {
 }
  
 export default TodoList;
-export { TodoContext}

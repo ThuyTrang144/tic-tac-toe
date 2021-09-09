@@ -1,30 +1,36 @@
 // import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 // import {faSearch} from '@fortawesome/free-solid-svg-icons'
+import { TodoContext } from './context';
 import React from 'react';
+
 class TodoSearch extends React.PureComponent {
-    constructor(props) {
-        super(props);
+    static contextType = TodoContext
+    constructor(props, context) {
+        super(props, context);
         this.state = {
-            value: ''
+            value: context.state.filterValue
         }
+        console.log('context', this.context)
     }
     onChange = (e) => {
         const value = e.target.value
         this.setState({value: value})
-        this.props.searchTodo(value)
+        this.context.searchTodo(value)
+        console.log('Context', this.context)
+        
     }
     render() {  
         return ( 
-            <div>
-                 <input 
-                    className='search-box' 
-                    placeholder='Search todo...' 
-                    type='search' onChange={this.onChange}>
-                 </input>
-            </div>
-           
+            <input 
+                className='search-box' 
+                placeholder='Search todo...' 
+                type='search' 
+                onChange={this.onChange}>
+            </input>
          );
     }
 }
+
+// TodoSearch.contextType = TodoContext
  
 export default TodoSearch;

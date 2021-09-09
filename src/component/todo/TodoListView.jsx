@@ -1,6 +1,9 @@
 import TodoItem from "./todoItem";
-import { TodoContext } from './todoList';
+import { TodoContext } from './context';
+import { useContext } from "react";
+
 export default function TodoListView() {
+    const context = useContext(TodoContext)
     function renderTodoList(todoList, filterValue) {   
         const searchResult = todoList.filter(item => item.todoTitle.toLowerCase().startsWith(filterValue))
         console.log("Search Value", searchResult)

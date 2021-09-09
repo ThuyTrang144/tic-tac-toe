@@ -3,6 +3,7 @@ import React from 'react';
 import InputGeneral from './inputGeneral';
 import {faPen, faTimes} from '@fortawesome/free-solid-svg-icons'
 import './style.scss'
+
 class TodoItem extends React.PureComponent {
     constructor(props) {
         super(props);

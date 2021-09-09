@@ -1,6 +1,7 @@
 import React from 'react';
 import InputGeneral from './inputGeneral';
 import './style.scss'
+
 class InputTodo extends React.PureComponent {
     constructor(props) {
         super(props);
@@ -19,7 +20,7 @@ class InputTodo extends React.PureComponent {
             <div className='input-todo'>
                 <InputGeneral onChange={this.onChange} onSubmit={this.onSubmit}/>
                 <button className='add-btn' onClick={this.onSubmit}>Add</button>
-            </div>
+            </div>  
          );
     }
 }

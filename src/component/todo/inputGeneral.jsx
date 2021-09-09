@@ -22,7 +22,12 @@ class InputGeneral extends React.Component {
     }
     render() { 
         return ( 
-            <input className='input-text' placeholder='Add todo' value={this.state.value} onChange={this.onChange} onKeyPress={this.onSubmit}></input>
+            <input 
+            className='input-text' 
+            placeholder='Add todo' 
+            value={this.state.value} 
+            onChange={this.onChange} 
+            onKeyPress={this.onSubmit}></input>
          );
     }
 }
