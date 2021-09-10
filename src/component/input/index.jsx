@@ -1,8 +1,6 @@
 import React from 'react';
-import { TodoContext } from '../../context';
 import './style.scss'
 export class Input extends React.Component {
-    static contextType = TodoContext;
     constructor(props) {
         super(props);
         this.state = {
@@ -11,21 +9,16 @@ export class Input extends React.Component {
         }
     }
     onSubmit = (e) => {
-        if(e.charCode === 13) {
-            if (this.props.onEdit) {
-                this.props.onEdit(this.state.value);
-            }
-            if (this.props.addNewTodo) {
-                this.props.addNewTodo(this.state.value);
-            }
+        if(e.charCode === 13 && this.props.onSubmit) {
+           this.props.onSubmit(this.state.value);
             this.setState({value: ''})
-        }
     }
+}
     onChange = (e) => {
         const value = e.target.value
         this.setState({ value: value})
-        if (this.props.searchTodo) {
-            this.props.searchTodo(value)
+        if (this.props.onChange) {
+            this.props.onChange(value)
         }
     }
     render() { 

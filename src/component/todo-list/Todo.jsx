@@ -33,8 +33,9 @@ class Todo extends React.PureComponent {
                 {this.state.isEdit ? 
                     <Input 
                         defaultValue={this.props.todoTitle} 
-                        onEdit={this.onEdit}/> :
-                    <div className='todo-item'>
+                        onSubmit={this.onEdit}
+                    /> :
+                    (<div className='todo-item'>
                         <span>{this.props.todoTitle}</span>
                         <div className='todo-action'>
                             <span 
@@ -48,7 +49,7 @@ class Todo extends React.PureComponent {
                                 <FontAwesomeIcon icon={faTimes} />
                             </span>
                         </div>
-                    </div>
+                    </div>)
                 }
             </div>
          );

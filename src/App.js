@@ -17,18 +17,18 @@ function App() {
         todoList[todoIndex].todoTitle = text;
         setTodoListState([...todoList])
     }
-    function addNewTodo(text) {
+    function addNewTodo() {
         const newTodo = {
             id: Math.random().toString().substring(2),
-            todoTitle: text
+            todoTitle: filterValue
         };
-        // todoList = [
-        //     newTodo, 
-        //     ...todoList
-        // ];
-        // return todoList;
-        todoList.unshift(newTodo);
-        setTodoListState([... todoList])
+        console.log('new todo', newTodo)
+        setTodoListState([
+            newTodo,
+            ...todoList
+        ])
+        setFilterValueState('')
+        return todoList;
     }
     function searchTodo (text) {
         const filterValue = text;
@@ -39,18 +39,12 @@ function App() {
             value={{
                 state: { todoList, filterValue },
                 editTodo: editTodo,
-                deleteTodo: deleteTodo
-            }}  
-        > 
-            <div className='search-box'>
-                <Input 
-                    searchTodo={searchTodo}
-                    placeholder='Search todo...'>
-                </Input>
-            </div>
+                deleteTodo: deleteTodo,
+            }}>
             <div className='adding-box'>
                 <Input
-                    addNewTodo={addNewTodo}
+                    onChange={searchTodo}
+                    onSubmit={addNewTodo}
                     placeholder='Add new todo'>
                 </Input>
                 <button 
