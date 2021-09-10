@@ -1,0 +1,18 @@
+.todo-item {
+    width: 300px;
+    height: 50px;
+    padding: 0px 10px;
+    margin: 10px 100px;
+    align-items: center;
+    border-radius: 4px;
+    display: flex;
+    justify-content: space-between;
+    box-shadow: 0px 0px 4px 0px #87bae4;
+}
+.edit-icon {
+    color: rgb(17, 85, 233);
+    margin-right: 15px;
+}
+.delete-icon {
+    color: rgb(192, 24, 24);
+}
