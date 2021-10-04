@@ -1,59 +1,59 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import React from 'react';
-import { Input } from '../input';
+import React, { useState } from 'react';
+import { InputTodo } from '..';
 import {faPen, faTimes} from '@fortawesome/free-solid-svg-icons'
 import './style.scss'
-import { TodoContext } from '../../context';
+import { useDispatch } from 'react-redux';
+import { deleteTodo, updateTodo } from './todoSlice';
 
-class Todo extends React.PureComponent {
-    static contextType = TodoContext;
-    constructor(props) {
-        super(props);
-        this.state = {
-            isEdit: false
-        }
-    }
-    changeView = () => {
-        if(this.state.isEdit) {
-            this.setState({ isEdit: false});
+function Todo (props) {
+
+    const [ isEdit, setIsEdit ] = useState();
+    const dispatch = useDispatch();
+
+    const update = (id, todoTitle) => {
+        dispatch(updateTodo({ id: id, todoTitle }));
+        setIsEdit(false);
+    };
+
+    const deleteTodoItem = (id) => {
+        dispatch(deleteTodo(id))
+    };
+
+    const openEditView = () => {
+        if(isEdit) {
+            setIsEdit(false);
         } else {
-            this.setState({ isEdit: true});
+            setIsEdit(true);
         }
     }
-    onDelete = () => {
-        this.context.deleteTodo(this.props.id);
+    return ( 
+        <div>
+            {isEdit ? 
+                <InputTodo 
+                    defaultValue={props.todoTitle} 
+                    id={props.id}
+                    update={update}
+                /> :
+                (<div className='todo-item'>
+                    <span>{props.todoTitle}</span>
+                    <div className='todo-action'>
+                        <span 
+                            className='edit-icon' 
+                            onClick={openEditView}
+                            >
+                            <FontAwesomeIcon icon={faPen} />
+                        </span>
+                        <span 
+                            className='delete-icon' 
+                            onClick={() => deleteTodoItem(props.id)}>
+                            <FontAwesomeIcon icon={faTimes} />
+                        </span>
+                    </div>
+                </div>)
+            }
+        </div>
+        );
     }
-    onEdit = (text) => {
-        this.context.editTodo(this.props.id, text);
-        this.setState({isEdit: false});
-    }
-    render() { 
-        return ( 
-            <div>
-                {this.state.isEdit ? 
-                    <Input 
-                        defaultValue={this.props.todoTitle} 
-                        onSubmit={this.onEdit}
-                    /> :
-                    (<div className='todo-item'>
-                        <span>{this.props.todoTitle}</span>
-                        <div className='todo-action'>
-                            <span 
-                                className='edit-icon' 
-                                onClick={this.changeView}>
-                                <FontAwesomeIcon icon={faPen} />
-                            </span>
-                            <span 
-                                className='delete-icon' 
-                                onClick={this.onDelete}>
-                                <FontAwesomeIcon icon={faTimes} />
-                            </span>
-                        </div>
-                    </div>)
-                }
-            </div>
-         );
-    }
-}
  
 export default Todo;
