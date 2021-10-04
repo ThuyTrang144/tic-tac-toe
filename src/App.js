@@ -11,10 +11,6 @@ function App() {
                 <InputTodo
                     placeholder='Add new todo'>
                 </InputTodo>
-                <button 
-                    className='add-btn'>
-                    Add
-                </button>
             </div>
             <TodoList />
         </Provider>

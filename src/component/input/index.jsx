@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Input } from 'antd';
 import './style.scss';
-import { addTodo, searchTodo, updateTodo } from '../todo-list/todoSlice';
+import { addTodo, searchTodo } from '../todo-list/todoSlice';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 export default function InputTodo (props) {
@@ -17,7 +17,7 @@ export default function InputTodo (props) {
         }
     }
 
-    const handleTodo = () => {
+    const onSubmit = () => {
         if (!props.id) {
             const newTodo = {
                 id: Math.random().toString().substring(2),
@@ -30,20 +30,26 @@ export default function InputTodo (props) {
         } 
         else {
             props.update(props.id, value);
-            console.log('valie', value, props.defaultValue);
         }
-
     }
 
     return ( 
-        <Input
-            className={['input-text', props.className].join(' ')}
-            defaultValue={props.defaultValue} 
-            value={value}
-            placeholder={props.placeholder}
-            onChange={onChange} 
-            onPressEnter={handleTodo}
+        <div>
+            <Input
+                className={['input-text', props.className].join(' ')}
+                defaultValue={props.defaultValue} 
+                value={value}
+                placeholder={props.placeholder}
+                onChange={onChange} 
+                onPressEnter={onSubmit}
+                >
+            </Input>
+            <button 
+            className='add-btn'
+            onClick={onSubmit}
             >
-        </Input>
+            Add
+        </button>
+     </div>
         );
 };

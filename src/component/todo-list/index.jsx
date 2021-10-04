@@ -7,6 +7,7 @@ export function TodoList() {
     const todoList = useSelector(state => state.todoList);
     console.log('todo', todoList);
     const searchValue = useSelector(state => state.searchValue);
+    
     const renderTodoList = (todoList, searchValue) => {
         const searchResult = todoList.filter(item => item.todoTitle.toLowerCase().startsWith(searchValue))
         const newList = (searchValue.length !== 0) ? searchResult : todoList
