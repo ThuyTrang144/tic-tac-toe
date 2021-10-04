@@ -1,35 +1,55 @@
-import React from 'react';
-import './style.scss'
-export class Input extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            value: this.props.defaultValue || '',
+import React, { useState } from 'react';
+import { Input } from 'antd';
+import './style.scss';
+import { addTodo, searchTodo } from '../todo-list/todoSlice';
+import { useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
+export default function InputTodo (props) {
+    const dispatch = useDispatch();
+    const searchValue = useSelector(state => state.searchValue);
+    const [ value, setValue ] = useState(searchValue || props.todoTitle);
 
+    const onChange  = (e) => {
+        const value = e.target.value;
+        setValue(value);
+        if (!props.id) {
+            dispatch(searchTodo(value))
         }
     }
-    onSubmit = (e) => {
-        if(e.charCode === 13 && this.props.onSubmit) {
-           this.props.onSubmit(this.state.value);
-            this.setState({value: ''})
-    }
-}
-    onChange = (e) => {
-        const value = e.target.value
-        this.setState({ value: value})
-        if (this.props.onChange) {
-            this.props.onChange(value)
+
+    const onSubmit = () => {
+        if (!props.id) {
+            const newTodo = {
+                id: Math.random().toString().substring(2),
+                todoTitle: value
+            };
+            dispatch(addTodo(newTodo))
+            setValue('');
+
+            dispatch(searchTodo(''))
+        } 
+        else {
+            props.update(props.id, value);
         }
     }
-    render() { 
-        return ( 
-            <input 
-                className={['input-text', this.props.className].join(' ')}
-                value={this.state.value} 
-                placeholder={this.props.placeholder}
-                onChange={this.onChange} 
-                onKeyPress={this.onSubmit}>
-            </input>
-         );
-    }
-}
+
+    return ( 
+        <div>
+            <Input
+                className={['input-text', props.className].join(' ')}
+                defaultValue={props.defaultValue} 
+                value={value}
+                placeholder={props.placeholder}
+                onChange={onChange} 
+                onPressEnter={onSubmit}
+                >
+            </Input>
+            <button 
+            className='add-btn'
+            onClick={onSubmit}
+            >
+            Add
+        </button>
+     </div>
+        );
+};
