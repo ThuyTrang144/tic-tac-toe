@@ -13,6 +13,7 @@ const todoSlice = createSlice({
     reducers: {
         addTodo: (state, action) => {
             state.todoList.splice(0, 0, action.payload);
+            console.log('action', action);
             return state;
         },
         deleteTodo: (state, action) => {
